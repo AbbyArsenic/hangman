@@ -2,6 +2,7 @@ let userGuess;
 let guessedLetters = [];
 let guessesLeft = 10;
 let wins = 0;
+let secretWord;
 
 // Use key events to listen for the letters guessed
 document.onkeyup = function(e) {
@@ -10,21 +11,19 @@ document.onkeyup = function(e) {
     }
 };
 
-// Display:
-//    * If the word is`madonna`, display it as: `_ _ _ _ _ _ _`.
-//    * As the user guesses, reveal correct letters: `m a d o _  _ a`.
-// When finished, game should automatically choose another word and continue.
+// Choose one of the words from the list (repeat after each win/loss)
 
-var game = {
-    categories: [
-        {
-            category: "movies",
-            words: ["mirrormask", "labyrinth", "harry potter"]
-        },{
-            category: "",
-            words: []
-        }
-    ]
+
+// Replace letters with spaces
+
+// When correct letter is guessed, put it back into word
+
+const game = {
+    words: ["frabjous", "jabberwocky", "nonsense", "bandersnatch", "cheshire", "caterpillar"],
+    randomWord() {
+        Math.floor(Math.random() * this.words.length);
+    },
+
 }
 // ##### Word Guess Game Bonuses
 
@@ -39,3 +38,5 @@ var game = {
 // Don't forget to place your global variables and functions above your object.
 //     * Remember: global variables, then objects, then calls.
 // Definitely talk with a TA or your instructor if you get tripped up during this challenge.
+game.randomWord();
+console.log(game.words.length);
