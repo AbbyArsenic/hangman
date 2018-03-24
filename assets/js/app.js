@@ -25,6 +25,9 @@ document.onkeyup = function(e) {
 
 const game = {
     words: ["frabjous", "jabberwocky", "nonsense", "bandersnatch", "cheshire", "caterpillar"],
+    displaySecret() {
+        document.getElementById("secretWord").innerHTML = guessedWord;
+    },
     randomWord() {
         let i = this.words.length;
         secretWord = this.words[Math.floor(Math.random() * i)];
@@ -34,15 +37,12 @@ const game = {
         for (let i = 0; i < secretWord.length; i++) {
             blanks.push("_");
         };
-        this.updateSecret();
     }, 
     updateSecret() {
         guessedWord = '';
         blanks.forEach((blank) => {
             guessedWord += blank + " ";
         });
-        console.log(blanks);
-        console.log("secret word: " + guessedWord);
     },
     replaceLetters(guess) {
         const inWord = secretWord.indexOf(guess);
@@ -52,13 +52,11 @@ const game = {
                     blanks[i]=guess;
                 }
             };
-            console.log(blanks)
             this.updateSecret()
-            document.getElementById("secretWord").innerHTML=guessedWord;
+            this.displaySecret();
         }
-        console.log(inWord);
     }
-
+    
 }
 // ##### Word Guess Game Bonuses
 
@@ -71,4 +69,6 @@ const game = {
 //     * Remember: global variables, then objects, then calls.
 game.randomWord();
 game.letterBlanks();
+game.updateSecret();
+game.displaySecret();
 
