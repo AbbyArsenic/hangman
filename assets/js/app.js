@@ -37,9 +37,12 @@ const game = {
             this.words.splice(i, 1);
             console.log(secretWord);
             console.log(this.words);
+            this.letterBlanks();
+            this.updateSecret();
+            this.updateDisp("secretWord", guessedWord);
         } else {
             console.log("Game Over");
-            this.updateDisp("secretWord", guess);
+            this.updateDisp("secretWord", "You played through all the words!");
         }
     },
     // Replace letters with spaces
@@ -91,9 +94,6 @@ const game = {
     }, 
     newWord() {
         this.randomWord();
-        this.letterBlanks();
-        this.updateSecret();
-        this.updateDisp("secretWord", guessedWord);
         guessesLeft = 10;
         guessedLetters = [];
     }, 
