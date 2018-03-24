@@ -6,42 +6,44 @@ let blanks = [];
 let guessedWord = "";
 let guessesLeft = 10;
 let wins = 0;
+let losses = 0;
+let gameOn = true;
+let enterKey = false;
 
 // Use key events to listen for the letters guessed
 document.onkeyup = function (e) {
-    if (e.which >= 65 && e.which <= 90) {
+    if (gameOn && e.which >= 65 && e.which <= 90) {
         guess = e.key;
         game.checkGuess(guess);
+    } else if (enterKey && e.which === 13) {
+        game.newWord();
     }
 };
 
 // Save game and its properties in an object.
 const game = {
     words: [
-        // "frabjous", 
-        // "jabberwocky", 
-        // "nonsense", 
-        // "bandersnatch", 
-        // "cheshire", 
-        // "caterpillar", 
-        // "wonderland", 
+        "frabjous", 
+        "jabberwocky", 
+        "nonsense", 
+        "bandersnatch", 
+        "cheshire", 
+        "caterpillar", 
+        "wonderland", 
         "dormouse", 
         "curiouser"
     ],
     // Choose one of the words from the list (repeat after each win/loss)
     randomWord() {
-        console.log(this.words.length);
         if (this.words.length >= 1) {
             let i = Math.floor(Math.random() * this.words.length);
             secretWord = this.words[i];
             this.words.splice(i, 1);
-            console.log(secretWord);
-            console.log(this.words);
+            // console.log(secretWord);
+            // console.log(this.words);
             this.letterBlanks();
-            this.updateSecret();
-            this.updateDisp("secretWord", guessedWord);
         } else {
-            console.log("Game Over");
+            gameOn = false;
             this.updateDisp("secretWord", "You played through all the words!");
         }
     },
@@ -51,6 +53,7 @@ const game = {
         for (let i = 0; i < secretWord.length; i++) {
             blanks.push("_");
         };
+        this.updateSecret();
     },
     // Convert blanks array into guessedWord string
     updateSecret() {
@@ -58,13 +61,13 @@ const game = {
         blanks.forEach((blank) => {
             guessedWord += blank + " ";
         });
+        this.updateDisp("secretWord", guessedWord);
     },
     // Check if guessed letter is in secret word
     checkGuess(g) {;
         const a = guessedLetters.indexOf(g);
         const b = blanks.indexOf(g);
         const inWord = secretWord.indexOf(g) >= 0;
-        console.log();
         if (inWord) {
             this.replaceLetters();
         } else if (a === -1 && b === -1) {
@@ -89,6 +92,12 @@ const game = {
         if (blanks.indexOf("_") === -1) {
             wins++; 
             this.updateDisp("wins", wins);
+            this.updateDisp("secretWord", `${secretWord} was right!`);
+            enterKey = true;
+        } else if (guessesLeft === 0) {
+            this.words.push(secretWord);
+            losses++;
+            this.updateDisp("losses", losses);
             this.newWord();
         }
     }, 
