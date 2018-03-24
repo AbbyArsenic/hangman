@@ -34,22 +34,27 @@ const game = {
         for (let i = 0; i < secretWord.length; i++) {
             blanks.push("_");
         };
-        console.log(guessedWord);
+        this.updateSecret();
+    }, 
+    updateSecret() {
+        guessedWord = '';
         blanks.forEach((blank) => {
             guessedWord += blank + " ";
         });
         console.log(blanks);
         console.log("secret word: " + guessedWord);
-    }, 
+    },
     replaceLetters(guess) {
         const inWord = secretWord.indexOf(guess);
         if(inWord>=0) {
             for(let i=0; i<secretWord.length; i++) {
                 if(secretWord.charAt(i)===guess) {
-                    guessedWord[i]=guess;
-                    console.log(guessedWord)
+                    blanks[i]=guess;
                 }
             };
+            console.log(blanks)
+            this.updateSecret()
+            document.getElementById("secretWord").innerHTML=guessedWord;
         }
         console.log(inWord);
     }
@@ -66,5 +71,4 @@ const game = {
 //     * Remember: global variables, then objects, then calls.
 game.randomWord();
 game.letterBlanks();
-document.getElementById("secretWord").append(guessedWord);
 
