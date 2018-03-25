@@ -9,27 +9,30 @@
 
 <body>
 
-  <h1>Press any letter key to begin guessing</h1>
+  <div class="wrapper">
+    <div class="highlight"></div>
+    <div class="instructions">
+      <h1>Press any letter key to begin guessing</h1>
 
-  <h3>Press [ENTER] after a win to get a new word.</h3>
+      <h3>Press [ENTER] after a win to get a new word.</h3>
+    </div>
+    <h1 class="secret" id="secretWord">
+      <!-- blanks for word to guess go here -->
+    </h1>
 
-  <h1 id="secretWord">
-    <!-- blanks for word to guess go here -->
-  </h1>
-
-  <h2>Wins:
-    <span id="wins"></span>
-  </h2>
-  <h2>Losses:
-    <span id="losses"></span>
-  </h2>
-  <h2>Guesses Remaining:
-    <span id="guessesLeft"></span>
-  </h2>
-  <h2>Letters Guessed:
-    <span id="lettersGuessed"></span>
-  </h2>
-
+    <h2 class="win">Wins:
+      <span id="wins"></span>
+    </h2>
+    <h2 class="lose">Losses:
+      <span id="losses"></span>
+    </h2>
+    <h2 class="guess">Guesses Remaining:
+      <span id="guessesLeft"></span>
+    </h2>
+    <h2 class="letter">Letters Guessed:
+      <span id="lettersGuessed"></span>
+    </h2>
+  </div>
 
   <script type="text/javascript" src="./assets/js/app.js"></script>
 </body>
